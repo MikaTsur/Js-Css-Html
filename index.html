@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Table</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Department Table</h1>
+
+    <!-- Form to add a new department -->
+    <form id="addDepartmentForm">
+        <label for="departmentName">Department Name:</label>
+        <input type="text" id="departmentName" name="departmentName" required>
+        
+        <label for="managerId">Manager ID:</label>
+        <input type="number" id="managerId" name="managerId" required>
+
+        <button type="button" onclick="addDepartment()">Add Department</button>
+    </form>
+
+    <table id="departmentTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Department Name</th>
+                <th>Manager ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table body will be populated dynamically -->
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
