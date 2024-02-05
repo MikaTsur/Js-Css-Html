@@ -76,7 +76,7 @@ async function addDepartment() {
             throw new Error(`Error adding department: ${resp.status} ${resp.statusText}`);
         }
 
-        
+
         // Refresh the department table after adding a new department
         getDepartments();
     } catch (error) {
@@ -85,7 +85,6 @@ async function addDepartment() {
 }
 
 function redirectToEditPage(departmentId) {
-    // Redirect to the API endpoint for editing a department using the departmentId
     window.location.href = `https://localhost:7201/api/Departments/${departmentId}`;
 }
 
