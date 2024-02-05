@@ -70,6 +70,7 @@ async function addDepartment() {
             },
             body: JSON.stringify(newDepartment)
         });
+        
 
         if (!resp.ok) {
             throw new Error(`Error adding department: ${resp.status} ${resp.statusText}`);
