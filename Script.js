@@ -87,31 +87,8 @@ async function addDepartment() {
 
 
 function redirectToEditPage(departmentId) {
-    window.location.href = `https://localhost:7201/api/Departments/${departmentId}`;
+    window.location.href = `editDepartment.html?departmentId=${departmentId}`;
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    getEmployees();
-});
-
-async function getEmployees() {
-    try {
-        let resp1 = await fetch("https://localhost:7201/api/Employees");
-        if (!resp1.ok) {
-            throw new Error(`Error fetching Employees: ${resp1.status} ${resp1.statusText}`);
-        }
-
-        let data1 = await resp1.json();
-        displayEmployees(data1);  // Corrected function name
-    } catch (error) {
-        console.error(`Error fetching Employees: ${error.message}`);
-    }
-}
-
-function displayEmployees(employees) {
-    console.log("Received employees data:", employees);
-
-
-}
 
