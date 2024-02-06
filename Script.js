@@ -16,8 +16,6 @@ async function getDepartments() {
     }
 }
 
-
-
 function displayDepartments(data) {
     // Get the table body element
     let tableBody = document.querySelector("#departmentTable tbody");
@@ -73,11 +71,9 @@ async function addDepartment() {
             body: JSON.stringify(newDepartment)
         });
 
-
         if (!resp.ok) {
             throw new Error(`Error adding department: ${resp.status} ${resp.statusText}`);
         }
-
 
         // Refresh the department table after adding a new department
         getDepartments();
@@ -90,5 +86,53 @@ function redirectToEditPage(departmentId) {
     window.location.href = `editDepartment.html?departmentId=${departmentId}`;
 }
 
+async function deleteDepartment(departmentId) {
+    // Check if there are employees in the department
+    const hasEmployees = await hasEmployeesInDepartment(departmentId);
 
+    if (hasEmployees) {
+        // Display a message or take appropriate action
+        alert("Cannot delete the department with employees.");
+        return;
+    }
+
+    try {
+        // Make DELETE request to delete the department
+        let resp = await fetch(`https://localhost:7201/api/Departments?id=${departmentId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+
+        if (!resp.ok) {
+            throw new Error(`Error deleting department: ${resp.status} ${resp.statusText}`);
+        }
+
+        // Refresh the department table after deleting a department
+        getDepartments();
+    } catch (error) {
+        console.error(`Error deleting department: ${error.message}`);
+    }
+}
+
+async function hasEmployeesInDepartment(departmentId) {
+    try {
+        // Make GET request to check if there are employees in the department
+        let resp = await fetch(`https://localhost:7201/api/Employees`);
+
+        if (!resp.ok) {
+            throw new Error(`Error checking employees: ${resp.status} ${resp.statusText}`);
+        }
+
+        let data = await resp.json();
+
+        // Check if there are any employees with the specified departmentId
+        return data.some(employee => employee.departmentID === departmentId);
+    } catch (error) {
+        console.error(`Error checking employees: ${error.message}`);
+        // Assume there are employees in case of an error
+        return true;
+    }
+}
 
