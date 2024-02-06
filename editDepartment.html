@@ -6,18 +6,7 @@
     <title>Edit Department</title>
     <link rel="stylesheet" href="C:\Users\morellyo\mika\JS_FOR_PROJECT\Style.css"> <!-- Replace with the actual path to your CSS file -->
     <style>
-        /* Additional inline styles for specific elements if needed */
-        #departmentInfo {
-            padding-bottom: 20px; /* Add more space at the bottom of departmentInfo */
-        }
 
-        #departmentInfo label {
-            margin-bottom: 10px; /* Add more space between labels and values */
-        }
-
-        #departmentInfo span {
-            font-weight: bold; /* Make the displayed values bold */
-        }
     </style>
 </head>
 <body>
@@ -48,19 +37,7 @@
     </tr>
 </table>
 
-<script>
-    function updateDepartment(event) {
-        event.preventDefault(); // Prevent the form from submitting in the traditional way
-
-        // Get values from the form inputs
-        var newDeptName = document.getElementById("newDeptName").value;
-        var newManagerID = document.getElementById("newManagerID").value;
-
-        // Update the content of the first row
-        document.getElementById("displayDeptName").innerHTML = "<b>" + newDeptName + "</b>";
-        document.getElementById("displayManagerID").innerHTML = "<b>" + newManagerID + "</b>";
-    }
-</script>
+<script src="updateDepartment.js"></script>
 
 </body>
 </html>

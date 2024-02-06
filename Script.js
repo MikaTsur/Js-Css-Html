@@ -17,6 +17,7 @@ async function getDepartments() {
 }
 
 
+
 function displayDepartments(data) {
     // Get the table body element
     let tableBody = document.querySelector("#departmentTable tbody");
@@ -84,7 +85,6 @@ async function addDepartment() {
         console.error(`Error adding department: ${error.message}`);
     }
 }
-
 
 function redirectToEditPage(departmentId) {
     window.location.href = `editDepartment.html?departmentId=${departmentId}`;
