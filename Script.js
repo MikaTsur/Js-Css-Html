@@ -16,6 +16,8 @@ async function getDepartments() {
     }
 }
 
+
+
 function displayDepartments(data) {
     // Get the table body element
     let tableBody = document.querySelector("#departmentTable tbody");
@@ -71,9 +73,11 @@ async function addDepartment() {
             body: JSON.stringify(newDepartment)
         });
 
+
         if (!resp.ok) {
             throw new Error(`Error adding department: ${resp.status} ${resp.statusText}`);
         }
+
 
         // Refresh the department table after adding a new department
         getDepartments();
@@ -83,25 +87,8 @@ async function addDepartment() {
 }
 
 function redirectToEditPage(departmentId) {
-    // Redirect to the API endpoint for editing a department using the departmentId
-    window.location.href = `https://localhost:7201/api/Departments/${departmentId}`;
+    window.location.href = `editDepartment.html?departmentId=${departmentId}`;
 }
 
 
-async function deleteDepartment(departmentId) {
-    try {
-        // Make DELETE request to delete the department
-        let resp = await fetch(`https://localhost:7201/api/Departments/${departmentId}`, {
-            method: "DELETE"
-        });
 
-        if (!resp.ok) {
-            throw new Error(`Error deleting department: ${resp.status} ${resp.statusText}`);
-        }
-
-        // Refresh the department table after deleting a department
-        getDepartments();
-    } catch (error) {
-        console.error(`Error deleting department: ${error.message}`);
-    }
-}
