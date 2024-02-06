@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Department</title>
+    <link rel="stylesheet" href="C:\Users\morellyo\mika\JS_FOR_PROJECT\Style.css"> <!-- Replace with the actual path to your CSS file -->
+    <style>
+        /* Additional inline styles for specific elements if needed */
+        #departmentInfo {
+            padding-bottom: 20px; /* Add more space at the bottom of departmentInfo */
+        }
+
+        #departmentInfo label {
+            margin-bottom: 10px; /* Add more space between labels and values */
+        }
+
+        #departmentInfo span {
+            font-weight: bold; /* Make the displayed values bold */
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td colspan="2" id="departmentInfo">
+            <h1>Edit Department</h1>
+            <label for="currentDeptName">Current Department Name:</label>
+            <br> <!-- Add a line break for more space -->
+            <span id="displayDeptName"><b>xxxxx</b></span>
+            <br> <!-- Add a line break for more space -->
+            <label for="currentManagerID">Current Manager ID:</label>
+            <br> <!-- Add a line break for more space -->
+            <span id="displayManagerID"><b>XXX</b></span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" id="addDepartmentForm">
+            <form id="editDepartmentForm" onsubmit="updateDepartment(event)">
+                <label for="newDeptName">New Department Name:</label>
+                <input type="text" id="newDeptName" name="newDeptName" required>
+                <label for="newManagerID">New Manager ID:</label>
+                <input type="number" id="newManagerID" name="newManagerID" required>
+                <button type="submit">Update Department</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<script>
+    function updateDepartment(event) {
+        event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+        // Get values from the form inputs
+        var newDeptName = document.getElementById("newDeptName").value;
+        var newManagerID = document.getElementById("newManagerID").value;
+
+        // Update the content of the first row
+        document.getElementById("displayDeptName").innerHTML = "<b>" + newDeptName + "</b>";
+        document.getElementById("displayManagerID").innerHTML = "<b>" + newManagerID + "</b>";
+    }
+</script>
+
+</body>
+</html>

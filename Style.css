@@ -64,3 +64,16 @@ th {
 tr:hover {
     background-color: #f5f5f5;
 }
+
+       
+#departmentInfo {
+    padding-bottom: 20px; 
+}
+
+#departmentInfo label {
+    margin-bottom: 10px; 
+}
+
+#departmentInfo span {
+    font-weight: bold; 
+}

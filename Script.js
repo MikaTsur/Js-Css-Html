@@ -16,6 +16,7 @@ async function getDepartments() {
     }
 }
 
+
 function displayDepartments(data) {
     // Get the table body element
     let tableBody = document.querySelector("#departmentTable tbody");
@@ -84,25 +85,33 @@ async function addDepartment() {
     }
 }
 
+
 function redirectToEditPage(departmentId) {
     window.location.href = `https://localhost:7201/api/Departments/${departmentId}`;
 }
 
 
-async function deleteDepartment(departmentId) {
-    try {
-        // Make DELETE request to delete the department
-        let resp = await fetch(`https://localhost:7201/api/Departments/${departmentId}`, {
-            method: "DELETE"
-        });
+document.addEventListener("DOMContentLoaded", function () {
+    getEmployees();
+});
 
-        if (!resp.ok) {
-            throw new Error(`Error deleting department: ${resp.status} ${resp.statusText}`);
+async function getEmployees() {
+    try {
+        let resp1 = await fetch("https://localhost:7201/api/Employees");
+        if (!resp1.ok) {
+            throw new Error(`Error fetching Employees: ${resp1.status} ${resp1.statusText}`);
         }
 
-        // Refresh the department table after deleting a department
-        getDepartments();
+        let data1 = await resp1.json();
+        displayEmployees(data1);  // Corrected function name
     } catch (error) {
-        console.error(`Error deleting department: ${error.message}`);
+        console.error(`Error fetching Employees: ${error.message}`);
     }
 }
+
+function displayEmployees(employees) {
+    console.log("Received employees data:", employees);
+
+
+}
+
