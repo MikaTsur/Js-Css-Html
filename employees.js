@@ -66,36 +66,36 @@ async function displayEmployees(employees) {
     });
 
 
-    async function addEmployee(){
-    // Get form data
-    let firstname = document.getElementById("firstname").Value;
-    let lastname = document.getElementById("lastname").Value;
-    let startWorkYear = document.getElementById("startWorkYear").Value;
-    let departmentID = document.getElementById("departmentID").Value;
-    // Prepare department object
-    let newEmployee ={
-        firstname: firstname,
-        lastname: lastname,
-        startWorkYear: startWorkYear,
-        departmentID: departmentID};
-    };
+    // async function addEmployee(){
+    // // Get form data
+    // let firstname = document.getElementById("firstname").Value;
+    // let lastname = document.getElementById("lastname").Value;
+    // let startWorkYear = document.getElementById("startWorkYear").Value;
+    // let departmentID = document.getElementById("departmentID").Value;
+    // // Prepare department object
+    // let newEmployee ={
+    //     firstname: firstname,
+    //     lastname: lastname,
+    //     startWorkYear: startWorkYear,
+    //     departmentID: departmentID};
+    // };
 
-    try {
-        //make post request to add a new employee
-        let resp = await fetch("http://localhost:7201/api/Employees", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body:stringify(newEmployee)   
-        });
+    // try {
+    //     //make post request to add a new employee
+    //     let resp = await fetch("http://localhost:7201/api/Employees", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body:stringify(newEmployee)   
+    //     });
 
-        if(!resp.ok){
-            throw new Error(`Error adding employee: ${resp.status} ${resp.statusText}`);
-        }
+    //     if(!resp.ok){
+    //         throw new Error(`Error adding employee: ${resp.status} ${resp.statusText}`);
+    //     }
 
-        getEmployees();
-    } catch (error){
-        console.error(`Error adding Employee: ${error.message}`);
-    }
+    //     getEmployees();
+    // } catch (error){
+    //     console.error(`Error adding Employee: ${error.message}`);
+    // }
 }
