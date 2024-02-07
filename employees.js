@@ -18,7 +18,7 @@ async function getEmployees() {
 }
 
 //display 
-function displayEmployees(employees) {
+async function displayEmployees(employees) {
     console.log("Received employees data:", employees);
     let tableBody = document.querySelector("#employeeTable tbody");
     tableBody.innerHTML = "";
@@ -31,8 +31,8 @@ function displayEmployees(employees) {
         let cell4 = row.insertCell(3);
         let cell5 = row.insertCell(4);
         let cell6 = row.insertCell(5);  
-        let cell7 = row.insertCell(6);  // New cell for "edit" button
-        let cell8 = row.insertCell(7);  // New cell for "Delete" button
+        let cell7 = row.insertCell(6);  // cell for "edit" button
+        let cell8 = row.insertCell(7);  // cell for "Delete" button
 
 
         cell1.textContent = employee.id;
@@ -41,6 +41,16 @@ function displayEmployees(employees) {
         cell4.textContent = employee.startWorkYear;
         cell5.textContent = employee.departmentID;
         cell6.textContent = employee.Shifts;
+
+        //add shift link
+        let addShiftLink = document.createElement("a");
+        addShiftLink.textContent = "Add Shift";
+        addShiftLink.href = "#";  // You can set the actual link here
+        addShiftLink.addEventListener("click", (event) => {
+            event.preventDefault();  // Prevent the default link behavior
+            addShiftFunction(employee.id);  // Call your function to handle "Add Shift"
+        });
+        cell6.appendChild(addShiftLink);
 
         // Add edit button
         let editButton = document.createElement("button");
@@ -54,14 +64,12 @@ function displayEmployees(employees) {
         deleteButton.addEventListener("click", () => deleteEmployee(employee.id));
         cell8.appendChild(deleteButton);
     });
-}
-
 
 
     async function addEmployee(){
     // Get form data
     let firstname = document.getElementById("firstname").Value;
-    let lastname  = document.getElementById("lastname").Value;
+    let lastname = document.getElementById("lastname").Value;
     let startWorkYear = document.getElementById("startWorkYear").Value;
     let departmentID = document.getElementById("departmentID").Value;
     // Prepare department object
@@ -69,8 +77,25 @@ function displayEmployees(employees) {
         firstname: firstname,
         lastname: lastname,
         startWorkYear: startWorkYear,
-        departmentID: departmentID
-    };
+        departmentID: departmentID};
     };
 
-    
+    try {
+        //make post request to add a new employee
+        let resp = await fetch("http://localhost:7201/api/Employees", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body:stringify(newEmployee)   
+        });
+
+        if(!resp.ok){
+            throw new Error(`Error adding employee: ${resp.status} ${resp.statusText}`);
+        }
+
+        getEmployees();
+    } catch (error){
+        console.error(`Error adding Employee: ${error.message}`);
+    }
+}

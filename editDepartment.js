@@ -21,7 +21,6 @@ async function getSingleDepartment(departmentId) {
     }
 }
 
-
 function displaySingleDepartment(singleDepartment) {
     console.log("Received employees data:", singleDepartment);
 

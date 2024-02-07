@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     getDepartments();
 });
 
+//Brings the data from db
+
 async function getDepartments() {
     try {
         let resp = await fetch("https://localhost:7201/api/Departments");
@@ -50,6 +52,7 @@ function displayDepartments(data) {
     });
 }
 
+//add Department functionality
 async function addDepartment() {
     // Get form data
     let departmentName = document.getElementById("departmentName").value;
