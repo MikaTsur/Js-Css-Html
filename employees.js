@@ -104,3 +104,24 @@ async function displayEmployees(employees) {
 
 
 }
+
+async function deleteEmployee(employeeId){
+    try {
+        let resp = await fetch(`https://localhost:7201/api/Employees?id=${employeeId}`, {
+            method: "DELETE",
+            headers: {
+             "Content-Type": "application/json"
+            },
+        });
+
+        if(!resp.ok){
+            throw new Error(`Error deleting department: ${resp.status} ${resp.statusText}`)
+        }
+
+         getEmployees() 
+    } catch (error){
+        console.error(`Error deleting employee: ${error.message}`);
+
+}
+
+}
