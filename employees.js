@@ -55,7 +55,7 @@ async function displayEmployees(employees) {
         // Add edit button
         let editButton = document.createElement("button");
         editButton.textContent = "Edit";
-        editButton.addEventListener("click", () => redirectToEditPage(employee.id));
+        editButton.addEventListener("click", () => redirectToEditEmployeePage(employee.id));
         cell7.appendChild(editButton);
 
         // Add delete button
@@ -98,4 +98,9 @@ async function displayEmployees(employees) {
     // } catch (error){
     //     console.error(`Error adding Employee: ${error.message}`);
     // }
+    function redirectToEditEmployeePage(employeeId) {
+        window.location.href = `editEmployee.html?employeeId=${employeeId}`;
+    }
+
+
 }
