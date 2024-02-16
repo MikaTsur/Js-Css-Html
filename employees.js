@@ -43,10 +43,7 @@ async function displayEmployees(employees) {
         let addShiftLink = document.createElement("a");
         addShiftLink.textContent = "Add Shift";
         addShiftLink.href = "#";
-        addShiftLink.addEventListener("click", (event) => {
-            event.preventDefault();
-            addShiftFunction(employee.id);
-        });
+        addShiftLink.addEventListener("click", () =>redirectToAddShiftPage(employee.id));
         cell6.appendChild(addShiftLink);
 
         // Add edit button
@@ -100,6 +97,10 @@ async function displayEmployees(employees) {
 
 function redirectToEditEmployeePage(employeeId) {
     window.location.href = `editEmployee.html?employeeId=${employeeId}`;
+}
+
+function redirectToAddShiftPage(employeeId) {
+    window.location.href = `Add_shift_to_employee.html?employeeId=${employeeId}`;
 }
 
 async function deleteEmployee(employeeId) {
