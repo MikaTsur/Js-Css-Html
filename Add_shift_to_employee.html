@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Shift</title>
-    <link rel="stylesheet" href="C:\Users\morellyo\mika\JS_FOR_PROJECT\Style.css"> <!-- Replace with the actual path to your CSS file -->
+    <link rel="stylesheet" href="C:\Users\morellyo\mika\JS_FOR_PROJECT\Style.css">
+    <!-- Replace with the actual path to your CSS file -->
 </head>
+
 <body>
 
-<table>
-    <tr>
-        <td colspan="2" id="ShiftInfo">
-            <h1>Add Shift</h1>
-            <label for="EmployeeName">Employee Name:</label>
-            <br>
-            <span id="displayEmployeeName"><b></b></span>
-            <br>
-            <label for="SavedShift">Saved shift:</label>
-            <br>
-            <span id="displayShift"><b></b></span>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" id="addDepartmentForm">
-            <form id="editDepartmentForm" onsubmit="updateDepartment(event)">
-                <label for="EmployeeName">Employee name:</label>
-                <input type="text" id="EmployeeName" name="EmployeeName" required>
+    <table>
+        <tr>
+            <td colspan="2" id="ShiftInfo">
+                <h1>Add Shift</h1>
+                <label for="EmployeeName">Employee Name:</label>
+                <br>
+                <span id="displayEmployeeName"><b></b></span>
+                <br>
+                <label for="SavedShift">Saved shift:</label>
+                <br>
+                <span id="displayShift"><b></b></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="addShiftForm">
                 
-                <label for="ShiftDate">Shift Date:</label>
-                <input type="date" id="shiftDate" name="ShiftDate" required>
-                
-                <label for="ShiftTime">Shift Time:</label>
-                <select id="shiftTime" name="ShiftTime" required>
-                    <!-- JavaScript will populate the options here -->
-                </select>
-                
-                <button type="submit">Update Shift</button>
-            </form>
-        </td>
-    </tr>
-</table>
+                <form id="editShiftForm" onsubmit="updateShift(event)">
+                    <label for="EmployeeName">Employee name:</label>
+                    <input type="text" id="EmployeeName" name="EmployeeName" required>
 
-<script src="addShift.js"></script>
+                    <label for="ShiftDate">Shift Date:</label>
+                    <input type="date" id="shiftDate" name="ShiftDate" required>
+
+                    <label for="ShiftTime">Shift Time:</label>
+                    <select id="shiftTime" name="ShiftTime" required>
+                        <!-- JavaScript will populate the options here -->
+                    </select>
+                    <button type="button" onclick="updateShift(event)">Update Shift</button>
+
+
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <script src="addShift.js"></script>
 
 </body>
+
 </html>
