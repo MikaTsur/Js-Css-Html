@@ -60,40 +60,6 @@ async function displayEmployees(employees) {
     });
 }
 
-// async function addEmployee() {     //ADD EMPLOYEE INFRA
-//     try {
-//         // Get form data
-//         let firstname = document.getElementById("firstname").value;
-//         let lastname = document.getElementById("lastname").value;
-//         let startWorkYear = document.getElementById("startWorkYear").value;
-//         let departmentID = document.getElementById("departmentID").value;
-
-//         // Prepare employee object
-//         let newEmployee = {
-//             firstname: firstname,
-//             lastname: lastname,
-//             startWorkYear: startWorkYear,
-//             departmentID: departmentID
-//         };
-
-//         // Make post request to add a new employee
-//         let resp = await fetch("https://localhost:7201/api/Employees", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify(newEmployee)
-//         });
-
-//         if (!resp.ok) {
-//             throw new Error(`Error adding employee: ${resp.status} ${resp.statusText}`);
-//         }
-
-//         getEmployees();
-//     } catch (error) {
-//         console.error(`Error adding Employee: ${error.message}`);
-//     }
-// }
 
 function redirectToEditEmployeePage(employeeId) {
     window.location.href = `editEmployee.html?employeeId=${employeeId}`;
