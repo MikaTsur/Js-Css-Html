@@ -63,22 +63,56 @@ function updateShift(event) {
             endTime: endHour
         }),
     })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Failed to update shift: ' + response.statusText);
-            }
-        })
-        .then(data => {
-            console.log('Success:', data);
-            // Handle success if needed
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle error if needed
-        });
+
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update shift: ' + response.statusText);
+        }
+
+        // No need to return JSON if status is 204 No Content
+        if (response.status === 204) {
+            return null;
+        }
+
+        return response.json();
+    })
+    .then(updatedShiftData => {
+        if (updatedShiftData) {
+            console.log('Success:', updatedShiftData);
+        }
+
+        // Fetch the list of shifts to determine the last shift ID
+        const shiftsUrl = 'https://localhost:7201/api/Shifts/';
+        return fetch(shiftsUrl);
+    })
+    .then(shiftsResponse => {
+        if (!shiftsResponse.ok) {
+            throw new Error('Failed to fetch shifts data: ' + shiftsResponse.statusText);
+        }
+
+        return shiftsResponse.json();
+    })
+    .then(shiftsData => {
+        if (shiftsData && shiftsData.length > 0) {
+            // Assuming the shifts are sorted by ID in descending order, so the first one is the last shift
+            const lastShiftId = shiftsData[0].id;
+
+            // Log the last shift ID (you can use it in the next steps)
+            console.log('Last Shift ID:', lastShiftId);
+
+            // Additional logic for updating the employeeShifts table
+            // Call the function to update the employeeShifts table with shiftId and lastShiftId
+            updateEmployeeShiftsTable(shiftId, lastShiftId);
+        } else {
+            console.error('No shifts data received.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle error if needed
+    });
 }
+
 
 // Call the function to generate options when the page loads
 generateShiftOptions();
