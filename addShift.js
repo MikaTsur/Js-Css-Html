@@ -44,8 +44,6 @@ function updateShift(event) {
     // Extract start and end hours from shiftTime
     const [startHour, endHour] = shiftTime.split('-').map(hour => parseInt(hour));
 
-    // Get shiftId from the URL
-    const shiftId = getParameterByName('shiftId');
 
     // Update the content as needed
     document.getElementById('displayEmployeeName').innerHTML = '<b>' + employeeName + '</b>';
@@ -89,16 +87,17 @@ function updateShift(event) {
     })
     .then(shiftsData => {
         console.log('Shifts Data:', shiftsData);
-
+    
         if (shiftsData && shiftsData.length > 0) {
-            // Assuming the shifts are sorted by ID in descending order, so the first one is the last shift
-            const lastShiftId = shiftsData[0].id;
-
+            // Assuming the shifts are not sorted, so let's sort them by ID in descending order
+            const sortedShifts = shiftsData.sort((a, b) => b.id - a.id);
+    
+            // Get the first shift after sorting, which is the one with the highest ID (last shift)
+            const lastShiftId = sortedShifts[0].id;
+    
             // Log the last shift ID (you can use it in the next steps)
             console.log('Last Shift ID:', lastShiftId);
-
-
-
+    
             // Additional logic for updating the employeeShifts table
             // Call the function to update the employeeShifts table with shiftId and lastShiftId
             updateEmployeeShiftsTable(employeeId, lastShiftId);
@@ -106,6 +105,7 @@ function updateShift(event) {
             console.error('No shifts data received.');
         }
     })
+    
     .catch(error => {
         console.error('Error:', error);
         // Handle error if needed
