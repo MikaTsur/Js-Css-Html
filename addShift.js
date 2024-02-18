@@ -38,6 +38,8 @@ function updateShift(event) {
     const employeeName = document.getElementById('EmployeeName').value;
     const dateShift = document.getElementById('shiftDate').value;
     const shiftTime = document.getElementById('shiftTime').value;
+    const employeeId = getParameterByName('employeeId');
+
 
     // Extract start and end hours from shiftTime
     const [startHour, endHour] = shiftTime.split('-').map(hour => parseInt(hour));
@@ -63,26 +65,19 @@ function updateShift(event) {
             endTime: endHour
         }),
     })
-
     .then(response => {
-        if (!response.ok) {
+        if (response.ok) {
+            return response.json();
+        } else {
             throw new Error('Failed to update shift: ' + response.statusText);
         }
-
-        // No need to return JSON if status is 204 No Content
-        if (response.status === 204) {
-            return null;
-        }
-
-        return response.json();
     })
-    .then(updatedShiftData => {
-        if (updatedShiftData) {
-            console.log('Success:', updatedShiftData);
-        }
+    .then(data => {
+        console.log('Success:', data);
 
         // Fetch the list of shifts to determine the last shift ID
         const shiftsUrl = 'https://localhost:7201/api/Shifts/';
+        console.log('Before fetching shifts data');
         return fetch(shiftsUrl);
     })
     .then(shiftsResponse => {
@@ -93,6 +88,8 @@ function updateShift(event) {
         return shiftsResponse.json();
     })
     .then(shiftsData => {
+        console.log('Shifts Data:', shiftsData);
+
         if (shiftsData && shiftsData.length > 0) {
             // Assuming the shifts are sorted by ID in descending order, so the first one is the last shift
             const lastShiftId = shiftsData[0].id;
@@ -100,9 +97,11 @@ function updateShift(event) {
             // Log the last shift ID (you can use it in the next steps)
             console.log('Last Shift ID:', lastShiftId);
 
+
+
             // Additional logic for updating the employeeShifts table
             // Call the function to update the employeeShifts table with shiftId and lastShiftId
-            updateEmployeeShiftsTable(shiftId, lastShiftId);
+            updateEmployeeShiftsTable(employeeId, lastShiftId);
         } else {
             console.error('No shifts data received.');
         }
@@ -111,6 +110,36 @@ function updateShift(event) {
         console.error('Error:', error);
         // Handle error if needed
     });
+}
+
+function updateEmployeeShiftsTable(employeeId, lastShiftId) {
+    const employeesShiftsUrl = 'https://localhost:7201/api/EmployeesShifts/';
+
+    fetch(employeesShiftsUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id: 0,
+            employeeID: employeeId,
+            shiftID: lastShiftId
+        }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update EmployeesShifts table: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            // Handle success if needed
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error if needed
+        });
 }
 
 
