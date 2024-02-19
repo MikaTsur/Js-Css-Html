@@ -64,11 +64,22 @@ function displayShifts(shifts, employees, shiftsInfo) {
 
             // Display employee names for the current group
             groupedShifts[key].employees.forEach(employee => {
-                cell3.textContent += `${employee.firstname} ${employee.lastname}, `;
-            });
+                let employeeLink = document.createElement("a");
+                employeeLink.href = `editEmployee.html?employeeId=${employee.id}`;
+                employeeLink.textContent = `${employee.firstname} ${employee.lastname}`;
+                employeeLink.style.display = "block"; // Make the link a block element for better styling
 
-            // Remove trailing comma and space
-            cell3.textContent = cell3.textContent.slice(0, -2);
+                // Add an event listener to the link
+                employeeLink.addEventListener("click", function (event) {
+                    //event.preventDefault();
+                    //updateEmployee(employee.id);
+                });
+
+                cell3.appendChild(employeeLink);
+
+                // Add a line break after each employee link
+                cell3.appendChild(document.createElement("br"));
+            });
         }
     }
 }

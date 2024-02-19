@@ -4,9 +4,10 @@ function getEmployeeByName(name, url) {
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
         results = regex.exec(url);
     if (!results) return null;
-    if (!results[2]) return '';
+    if (!results[2]) return null; // Return null if the value is not present
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
 function updateEmployee(event) {
     event.preventDefault(); // Prevent the form from submitting in the traditional way
 
@@ -17,7 +18,7 @@ function updateEmployee(event) {
     var newDepartmentID = document.getElementById("newDepartmentID").value;
 
     // Get Employee ID from the URL
-    var employeeId = getEmployeeByName("employeeId");
+    var employeeId = parseInt(getEmployeeByName("employeeId"));
 
     // Update the content of the first row
     document.getElementById("displayEmployeeFisrtName").innerHTML = "<b>" + newFirstName + "</b>";
@@ -51,9 +52,9 @@ function updateEmployee(event) {
             // Handle error if needed
         });
 }
-// Drop Down list functionallity
+
+// Drop Down list functionality
 document.addEventListener('DOMContentLoaded', function () {
-    
     fetch('https://localhost:7201/api/Departments')
         .then(response => response.json())
         .then(data => {
