@@ -4,18 +4,30 @@ document.addEventListener('DOMContentLoaded', function () {
         redirectToHomePage(); // Redirect if authenticated
     }
 
-    const loginForm = document.getElementById('loginForm');
+    // Get references to the buttons
+    const employeesBtn = document.getElementById('employeesBtn');
+    const departmentsBtn = document.getElementById('departmentsBtn');
+    const shiftsBtn = document.getElementById('shiftsBtn');
 
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
+    // Attach event listeners to the buttons
+    employeesBtn.addEventListener('click', redirectToEmployeesPage);
+    departmentsBtn.addEventListener('click', redirectToDepartmentsPage);
+    shiftsBtn.addEventListener('click', redirectToShiftsPage);
 
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        // Perform the login API request
-        login(username, password);
-    });
+    // ... (your existing code) ...
 });
+
+function redirectToEmployeesPage() {
+    window.location.href = 'employees.html';
+}
+
+function redirectToDepartmentsPage() {
+    window.location.href = 'index.html';
+}
+
+function redirectToShiftsPage() {
+    window.location.href = 'allshifts.html';
+}
 
 function isUserAuthenticated() {
     // Your logic to check if the user is authenticated
