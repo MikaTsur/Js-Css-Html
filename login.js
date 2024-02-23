@@ -42,7 +42,7 @@ function login(username, password) {
         document.cookie = `userToken=${data.token}; path=/`;
 
         // Redirect to the homepage with user information
-        window.location.href = `homepage.html?fullName=${encodeURIComponent(data.user.fullName)}&numOfActions=${encodeURIComponent(data.user.numOfActions)}`;
+        window.location.href = `homepage.html?fullName=${encodeURIComponent(data.fullName)}&numOfActions=${encodeURIComponent(data.numOfActions)}`;
     })
     .catch(error => {
         console.error('Login error:', error);
