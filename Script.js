@@ -11,6 +11,8 @@ async function getDepartments() {
             throw new Error(`Error fetching departments: ${resp.status} ${resp.statusText}`);
         }
 
+        updateUserCounter('GET');
+
         let data = await resp.json();
         displayDepartments(data);
     } catch (error) {
@@ -77,6 +79,7 @@ async function addDepartment() {
         if (!resp.ok) {
             throw new Error(`Error adding department: ${resp.status} ${resp.statusText}`);
         }
+        updateUserCounter('POST');
 
         // Refresh the department table after adding a new department
         getDepartments();
@@ -111,6 +114,8 @@ async function deleteDepartment(departmentId) {
         if (!resp.ok) {
             throw new Error(`Error deleting department: ${resp.status} ${resp.statusText}`);
         }
+
+        updateUserCounter('DELETE');
 
         // Refresh the department table after deleting a department
         getDepartments();
