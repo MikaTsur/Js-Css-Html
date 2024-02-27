@@ -17,11 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const employeesBtn = document.getElementById('employeesBtn');
     const departmentsBtn = document.getElementById('departmentsBtn');
     const shiftsBtn = document.getElementById('shiftsBtn');
+    const logoutBtn = document.getElementById('logoutBtn')
 
     // Attach event listeners to the buttons
     employeesBtn.addEventListener('click', redirectToEmployeesPage);
     departmentsBtn.addEventListener('click', redirectToDepartmentsPage);
     shiftsBtn.addEventListener('click', redirectToShiftsPage);
+    logoutBtn.addEventListener('click', redirectToLoginPage);
 
     // ... (your existing code) ...
 });
@@ -48,3 +50,7 @@ function redirectToHomePage() {
     window.location.href = 'homepage.html';
 }
 
+function redirectToLoginPage() {
+
+    window.location.href = 'loginpage.html';
+}
