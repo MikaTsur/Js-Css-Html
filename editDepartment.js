@@ -13,6 +13,7 @@ async function getSingleDepartment(departmentId) {
         if (!resp.ok) {
             throw new Error(`Error fetching Employees: ${resp.status} ${resp.statusText}`);
         }
+        updateUserCounter('GET');
 
         let data = await resp.json();
         displaySingleDepartment(data);

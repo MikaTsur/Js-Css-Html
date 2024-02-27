@@ -133,6 +133,9 @@ async function hasEmployeesInDepartment(departmentId) {
             throw new Error(`Error checking employees: ${resp.status} ${resp.statusText}`);
         }
 
+        updateUserCounter('UPDATE');
+
+
         let data = await resp.json();
 
         // Check if there are any employees with the specified departmentId
