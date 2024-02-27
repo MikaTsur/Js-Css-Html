@@ -4,7 +4,16 @@ document.addEventListener('DOMContentLoaded', function () {
         redirectToHomePage(); // Redirect if authenticated
     }
 
-    // Get references to the buttons
+    // handle local storage
+    let fullnamedisplay = localStorage.getItem('fullname');
+    console.log(fullnamedisplay)
+    const welcomeHeader = document.getElementById('welcomeHeader');
+    if (welcomeHeader) {
+        welcomeHeader.textContent = fullnamedisplay
+            ? ` ${fullnamedisplay}*   Welcome to the Home Page`
+            : 'Welcome to the Home Page'; // Set a default value if fullnamedisplay is null or undefined
+    }
+
     const employeesBtn = document.getElementById('employeesBtn');
     const departmentsBtn = document.getElementById('departmentsBtn');
     const shiftsBtn = document.getElementById('shiftsBtn');
@@ -38,3 +47,4 @@ function isUserAuthenticated() {
 function redirectToHomePage() {
     window.location.href = 'homepage.html';
 }
+
