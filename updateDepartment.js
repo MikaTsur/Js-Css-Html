@@ -36,7 +36,17 @@ function updateDepartment(event) {
             managerId: parseInt(newManagerID)
         }),
     })
-    .then(response => response.json())
+
+    .then(response => 
+        {if (response.of){
+            updateUserCounter('POST');
+            return  response.json();
+        } else{
+            throw new Error('failed to update department: ' + response.statusText);
+        }
+    })
+
+
     .then(data => {
         console.log('Success:', data);
         // Handle success if needed

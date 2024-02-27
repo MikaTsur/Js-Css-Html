@@ -65,6 +65,7 @@ function updateShift(event) {
     })
         .then(response => {
             if (response.ok) {
+                updateUserCounter('POST');
                 return response.json();
             } else {
                 throw new Error('Failed to update shift: ' + response.statusText);
@@ -82,7 +83,7 @@ function updateShift(event) {
             if (!shiftsResponse.ok) {
                 throw new Error('Failed to fetch shifts data: ' + shiftsResponse.statusText);
             }
-
+            updateUserCounter('GET');
             return shiftsResponse.json();
         })
         .then(shiftsData => {
@@ -130,6 +131,7 @@ function updateEmployeeShiftsTable(employeeId, lastShiftId) {
             if (!response.ok) {
                 throw new Error('Failed to update EmployeesShifts table: ' + response.statusText);
             }
+            updateUserCounter('POST');
             return response.json();
         })
         .then(data => {

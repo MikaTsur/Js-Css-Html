@@ -1,22 +1,30 @@
+<!-- homepage.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <!-- ... (your existing head content) ... -->
     <link rel="stylesheet" href="style.css"> <!-- Include your common styles -->
     <link rel="stylesheet" href="homepage.css"> <!-- Additional styles for homepage -->
 </head>
 
 <body>
+    <header>
+        <div class="header-container">
+            <h1>Welcome to the Home Page</h1>
+            <p id="welcomeMessage"></p>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
     <div class="home-container">
-        <h1>Welcome to the Home Page</h1>
+        <!-- Your existing content here -->
         <button id="employeesBtn">Employees</button>
         <button id="departmentsBtn">Departments</button>
         <button id="shiftsBtn">Shifts</button>
     </div>
 
+    <script src="login.js"></script>
     <script src="homepage.js"></script>
 </body>
 

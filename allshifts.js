@@ -15,6 +15,7 @@ async function getShifts() {
         let shiftsData = await shiftsResp.json();
         let employeesData = await employeesResp.json();
         let shiftsInfoData = await shiftsInfoResp.json();
+        updateUserCounter('GET');
 
         displayShifts(shiftsData, employeesData, shiftsInfoData);
     } catch (error) {

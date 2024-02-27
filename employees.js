@@ -8,7 +8,7 @@ async function getEmployees() {
         if (!resp.ok) {
             throw new Error(`Error fetching Employees: ${resp.status} ${resp.statusText}`);
         }
-
+        updateUserCounter('GET');
         let data = await resp.json();
         displayEmployees(data);
     } catch (error) {
@@ -81,6 +81,8 @@ async function deleteEmployee(employeeId) {
         if (!resp.ok) {
             throw new Error(`Error deleting employee: ${resp.status} ${resp.statusText}`);
         }
+        updateUserCounter('DELETE');
+
 
         getEmployees();
     } catch (error) {

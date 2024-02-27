@@ -41,6 +41,8 @@ function login(username, password) {
         // Store the user token securely (e.g., in a cookie or using browser storage)
         document.cookie = `userToken=${data.token}; path=/`;
         localStorage.setItem('numOfActions', data.numOfActions);
+        localStorage.setItem('fullname', data.fullName);
+
 
         // Update user activity counters in localStorage
         updateUserCounter('login');
