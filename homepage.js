@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const employeesBtn = document.getElementById('employeesBtn');
     const departmentsBtn = document.getElementById('departmentsBtn');
     const shiftsBtn = document.getElementById('shiftsBtn');
-    const logoutBtn = document.getElementById('logoutBtn')
+    const logoutBtn = document.getElementById('logoutBtn');
 
-    // Attach event listeners to the buttons
+    // Attach event listeners to the buttons Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
     employeesBtn.addEventListener('click', redirectToEmployeesPage);
     departmentsBtn.addEventListener('click', redirectToDepartmentsPage);
     shiftsBtn.addEventListener('click', redirectToShiftsPage);
