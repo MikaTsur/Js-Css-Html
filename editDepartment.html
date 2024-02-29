@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div id="headerContainer"></div>
     <title>Edit Department</title>
     <link rel="stylesheet" href="C:\Users\morellyo\mika\JS_FOR_PROJECT\Style.css"> <!-- Replace with the actual path to your CSS file -->
     <style>
@@ -36,8 +37,32 @@
         </td>
     </tr>
 </table>
+
+<script>
+    // Load header.html into the headerContainer div
+    document.getElementById('headerContainer').innerHTML = `
+        <link rel="stylesheet" href="style.css"> <!-- Include your common styles -->
+        <link rel="stylesheet" href="homepage.css"> <!-- Additional styles for homepage -->
+        <header>
+            <div class="header-container">
+                <h1 id="welcomeHeader"></h1>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </header>
+        <div class="home-container">
+            <!-- Your existing content here -->
+        </div>
+    `;
+
+    // Include header.js script after loading header.html
+    const scriptElement = document.createElement('script');
+    scriptElement.src = 'header.js';
+    document.body.appendChild(scriptElement);
+</script>
+
 <script src="login.js"></script>
 <script src="updateDepartment.js"></script>
+<script src="header.js"></script>
 
 </body>
 </html>
