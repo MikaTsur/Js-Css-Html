@@ -29,33 +29,34 @@ function login(username, password) {
         },
         body: JSON.stringify(payload)
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Login failed');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Login successful:', data);
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Login successful:', data);
 
-        // Store the user token securely (e.g., in a cookie or using browser storage)
-        document.cookie = `userToken=${data.token}; path=/`;
-        localStorage.setItem('numOfActions', data.numOfActions);
-        localStorage.setItem('fullname', data.fullName);
+            // Store the user token securely (e.g., in a cookie or using browser storage)
+            document.cookie = `userToken=${data.token}; path=/`;
+            localStorage.setItem('numOfActions', data.numOfActions);
+            localStorage.setItem('fullname', data.fullName);
 
 
-        // Update user activity counters in localStorage
-        updateUserCounter('login');
+            // Update user activity counters in localStorage
+            updateUserCounter('login');
 
-        // Redirect to the homepage with user information
-        window.location.href = `homepage.html?fullName=${encodeURIComponent(data.fullName)}&numOfActions=${encodeURIComponent(data.numOfActions)}`;
-    })
-    .catch(error => {
-        console.error('Login error:', error);
-        // Handle errors
-    });
+            // Redirect to the homepage with user information
+            window.location.href = `homepage.html?fullName=${encodeURIComponent(data.fullName)}&=${encodeURIComponent(data.numOfActions)}`;
+        })
+        .catch(error => {
+            console.error('Login error:', error);
+            // Handle errors
+        });
 }
 
+// Initialize or update user activity counters
 // Initialize or update user activity counters
 function updateUserCounter(activityType) {
     const countersString = localStorage.getItem('userCounters');
@@ -84,4 +85,23 @@ function updateUserCounter(activityType) {
 
     // Save the updated counters back to localStorage
     localStorage.setItem('userCounters', JSON.stringify(counters));
+
+    // Check for the conditions to redirect to the login page
+    const numOfActions = parseInt(localStorage.getItem('numOfActions') || 0, 10);
+    const sumOfActions = Object.values(counters).reduce((sum, count) => sum + count, 0);
+
+    if (sumOfActions >= numOfActions) {
+        redirectToLoginPage();
+    }
+
+    // Check for the condition to redirect to the login page after 24 hours
+    const lastLoginTime = parseInt(localStorage.getItem('lastLoginTime') || 0, 10);
+    const currentTime = new Date().getTime();
+    const twentyFourHoursInMillis = 24 * 60 * 60 * 1000;
+
+    if (currentTime - lastLoginTime >= twentyFourHoursInMillis) {
+        // Reset counters and update last login time
+        localStorage.setItem('userCounters', JSON.stringify({}));
+        localStorage.setItem('lastLoginTime', currentTime);
+    }
 }
