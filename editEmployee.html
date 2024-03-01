@@ -9,37 +9,46 @@
 </head>
 <body>
 
-<table>
-    <tr>
-        <td colspan="2" id="EmployeeInfo">
+    <table>
+        <tr>
+            <td colspan="2" id="EmployeeInfo">
+                <h1>Edit Employee</h1>
+                <label for="currentEmployeeFirstName">Current Employee First Name:</label>
+                <span id="displayEmployeeFisrtName"><b>xxxxx</b></span>
+                <br> 
+                <br> 
+                <label for="currentEmployeeLastName">Current Employee Last Name:</label>
+                <span id="displayEmployeeLastName"><b>xxxxx</b></span>
+                <br>
+                <br>
+                <label for="currentEmployeeYear">Employee start year:</label>
+                <span id="displayEmployeeYear"><b>xxxxx</b></span>
+                <br> 
+                <br>
+                <label for="currentEmployeeDepartment">Employee department:</label>
+                <span id="displayEmployeeDepartment"><b>xxxxx</b></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="addEmployeeForm">
+                <form id="editEmployeeForm" onsubmit="updateEmployee(event)">
+                    <label for="newFirstName">New Employee First Name:</label>
+                    <input type="text" id="newFirstName" name="newFirstName" required>
+                    <label for="newLastName">New Employee Last name:</label>
+                    <input type="text" id="newLastName" name="newLastName" required>
+                    <label for="newStartYear">New Employee Start year:</label>
+                    <input type="number" id="newStartYear" name="newStartYear" required>
+                    <label for="newDepartmentID">New Employee Department:</label>
+                    <select id="newDepartmentID" name="newDepartmentID" required>
+                        <!-- Replace the options below with your actual department options -->
+                    </select>
+                    <button type="submit">Update Employee</button>
+                </form>
+            </td>
+        </tr>
+    </table>
 
-            <h1>Edit Employee</h1>
 
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" id="addEmployeeForm">
-            <form id="editEmployeeForm" onsubmit="updateEmployee(event)">
-
-                <label for="newFirstName">New Employee First Name:</label>
-                <input type="text" id="newFirstName" name="newFirstName" required>
-
-                <label for="newLastName">New Employee Last name:</label>
-                <input type="text" id="newLastName" name="newLastName" required>
-
-                <label for="newStartYear">New Employee Start year:</label>
-                <input type="number" id="newStartYear" name="newStartYear" required>
-
-                <label for="newDepartmentID">New Employee Department:</label>
-                <select id="newDepartmentID" name="newDepartmentID" required>
-                    <!-- Replace the options below with your actual department options -->
-                </select>
-                <button type="submit">Update Employee</button>
-
-            </form>
-        </td>
-    </tr>
-</table>
 <script>
     // Load header.html into the headerContainer div
     document.getElementById('headerContainer').innerHTML = `
