@@ -1,3 +1,15 @@
+document.addEventListener('DOMContentLoaded', function () {
+    // Retrieve search input value from localStorage
+    const storedSearchInput = localStorage.getItem('searchInput');
+    
+    // Update the search input field with the retrieved value
+    document.getElementById('searchInput').value = storedSearchInput || '';
+
+    // Trigger search on page load
+    updateSearchResults(storedSearchInput);
+});
+
+
 // initialize input value from ui
 document.getElementById('searchInput').addEventListener('input', function () {
     let searchInputValue = this.value.trim();

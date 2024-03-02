@@ -110,4 +110,3 @@ function redirectToSearchResults() {
     window.location.href = 'search.html';
    
 };
-
