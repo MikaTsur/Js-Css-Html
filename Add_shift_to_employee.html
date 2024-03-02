@@ -4,22 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Shift</title>
     <link rel="stylesheet" href="C:\Users\morellyo\mika\JS_FOR_PROJECT\Style.css">
     <!-- Replace with the actual path to your CSS file -->
 </head>
 
 <body>
-    <div id="headerContainer"></div>
 
     <table>
         <tr>
             <td colspan="2" id="ShiftInfo">
                 <h1>Add Shift</h1>
+                <label for="EmployeeName">Employee Name:</label>
+                <br>
+                <span id="displayEmployeeName"><b></b></span>
+                <br>
+                <label for="SavedShift">Saved shift:</label>
+                <br>
+                <span id="displayShift"><b></b></span>
             </td>
         </tr>
         <tr>
             <td colspan="2" id="addShiftForm">
-
+                
                 <form id="editShiftForm" onsubmit="updateShift(event)">
                     <label for="EmployeeName">Employee name:</label>
                     <input type="text" id="EmployeeName" name="EmployeeName" required>
@@ -39,31 +46,7 @@
         </tr>
     </table>
 
-    <script>
-        // Load header.html into the headerContainer div
-        document.getElementById('headerContainer').innerHTML = `
-            <link rel="stylesheet" href="style.css"> <!-- Include your common styles -->
-            <link rel="stylesheet" href="homepage.css"> <!-- Additional styles for homepage -->
-            <header>
-                <div class="header-container">
-                    <h1 id="welcomeHeader"></h1>
-                    <button id="logoutBtn">Logout</button>
-                </div>
-            </header>
-            <div class="home-container">
-                <!-- Your existing content here -->
-            </div>
-        `;
-
-        // Include header.js script after loading header.html
-        const scriptElement = document.createElement('script');
-        scriptElement.src = 'header.js';
-        document.body.appendChild(scriptElement);
-    </script>
-    <script src="login.js"></script>
     <script src="addShift.js"></script>
-    <script src="header.js"></script>
-
 
 </body>
 

@@ -25,6 +25,7 @@ async function getShifts() {
 
 function displayShifts(shifts, employees, shiftsInfo) {
     let groupedShifts = {};
+    let addedShifts = {};
 
     // Group shifts by date and hours
     shifts.forEach(shift => {
@@ -33,7 +34,6 @@ function displayShifts(shifts, employees, shiftsInfo) {
 
         if (shiftInfo && employee) {
             let key = `${shiftInfo.date}_${shiftInfo.startTime}_${shiftInfo.endTime}`;
-
             if (!groupedShifts[key]) {
                 groupedShifts[key] = {
                     date: shiftInfo.date,
@@ -43,7 +43,15 @@ function displayShifts(shifts, employees, shiftsInfo) {
                 };
             }
 
+            // Sort shifts by date in descending order
+            shifts.sort((a, b) => {
+                const dateA = shiftsInfo.find(info => info.id === a.shiftID)?.date || '';
+                const dateB = shiftsInfo.find(info => info.id === b.shiftID)?.date || '';
+                return new Date(dateB) - new Date(dateA);
+            });
+
             groupedShifts[key].employees.push(employee);
+            addedShifts[shift.shiftID] = true;
         }
     });
 
@@ -60,7 +68,8 @@ function displayShifts(shifts, employees, shiftsInfo) {
             let cell2 = row.insertCell(1);
             let cell3 = row.insertCell(2);
 
-            cell1.textContent = date;
+            // Display only the date in the "Date" column
+            cell1.textContent = date.split('T')[0];
             cell2.textContent = `${startHour}-${endHour}`;
 
             // Display employee names for the current group
