@@ -74,35 +74,15 @@ async function searchEmployeeByInput(searchInputValue, tableBody) {
             let cell3 = row.insertCell(2);
             let cell4 = row.insertCell(3);
             let cell5 = row.insertCell(4);
-            let cell6 = row.insertCell(5);
-            let cell7 = row.insertCell(6);
-            let cell8 = row.insertCell(7);
+
 
             cell1.textContent = employee.id;
             cell2.textContent = employee.firstname;
             cell3.textContent = employee.lastname;
             cell4.textContent = employee.startWorkYear;
             cell5.textContent = employee.departmentID;
-            cell6.textContent = employee.Shifts;
+            // cell6.textContent = employee.Shifts;
 
-            //add shift link
-            let addShiftLink = document.createElement("a");
-            addShiftLink.textContent = "Add Shift";
-            addShiftLink.href = "#";
-            addShiftLink.addEventListener("click", () => redirectToAddShiftPage(employee.id));
-            cell6.appendChild(addShiftLink);
-
-            // Add edit button
-            let editButton = document.createElement("button");
-            editButton.textContent = "Edit";
-            editButton.addEventListener("click", () => redirectToEditEmployeePage(employee.id));
-            cell7.appendChild(editButton);
-
-            // Add delete button
-            let deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.addEventListener("click", () => deleteEmployee(employee.id));
-            cell8.appendChild(deleteButton);
         });
 
         // Return the array of matching employees
