@@ -4,23 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employees Table</title>
+    <title>Search results</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Include the script defining updateSearchResults function here -->
+    <script src="search.js"></script>
 </head>
 
 <body>
     <div id="headerContainer"></div>
-    <h1>Employees Table</h1>
-    
-    <!-- Add this just before the table -->
-    <div id="searchContainer">
-        <label for="searchInput">Search:</label>
-        <input type="text" id="searchInput" placeholder="Enter first name, last name, or department">
-        <button id="searchBtn">Search</button>
-    </div>
+    <h1>Search results</h1>
 
+    <input type="text" id="searchInput" placeholder="Enter search criteria">
 
-    <table id="employeeTable">
+    <table id="SearchemployeeTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -28,16 +24,17 @@
                 <th>Last Name</th>
                 <th>StartWorkYear</th>
                 <th>DepartmentID</th>
-                <th>Shifts List </th>
+                <th>Shifts List</th>
                 <th>Edit</th>
                 <th>Delete</th>
-
             </tr>
         </thead>
+        
         <tbody>
             <!-- Table body will be populated dynamically -->
         </tbody>
     </table>
+
     <script>
         // Load header.html into the headerContainer div
         document.getElementById('headerContainer').innerHTML = `
@@ -61,10 +58,10 @@
     </script>
 
     <script src="login.js"></script>
-    <script src="employees.js"></script>
+    <!-- Move the inline script here after including search.js -->
+    <script src="search.js"></script>
     <script src="header.js"></script>
-
-
+xtsur
 </body>
 
 </html>

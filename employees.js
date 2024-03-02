@@ -57,6 +57,8 @@ async function displayEmployees(employees) {
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => deleteEmployee(employee.id));
         cell8.appendChild(deleteButton);
+
+    
     });
 }
 
@@ -64,6 +66,7 @@ async function displayEmployees(employees) {
 function redirectToEditEmployeePage(employeeId) {
     window.location.href = `editEmployee.html?employeeId=${employeeId}`;
 }
+
 
 function redirectToAddShiftPage(employeeId) {
     window.location.href = `Add_shift_to_employee.html?employeeId=${employeeId}`;
@@ -89,3 +92,22 @@ async function deleteEmployee(employeeId) {
         console.error(`Error deleting employee: ${error.message}`);
     }
 }
+
+
+//search func
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const searchBtn = document.getElementById('searchBtn')
+
+    searchBtn.addEventListener('click', redirectToSearchResults);
+
+});
+
+function redirectToSearchResults() {
+    const searchInputValue = document.getElementById('searchInput').value;
+    localStorage.setItem('searchInput', searchInputValue);
+    window.location.href = 'search.html';
+   
+};
+
