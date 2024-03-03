@@ -43,7 +43,7 @@ function displayShifts(shifts, employees, shiftsInfo) {
             }
 
             // Add employee information to the current shift group
-            groupedShifts[key].employees.push(`${employee.firstname} ${employee.lastname}`);
+            groupedShifts[key].employees.push(employee);
         }
     });
 
@@ -66,8 +66,23 @@ function displayShifts(shifts, employees, shiftsInfo) {
             // Display hours in the "Hours" column
             cell2.textContent = `${startHour}-${endHour}`;
 
-            // Display employee names in the "Employees" column
-            cell3.textContent = groupedShifts[key].employees.join(', ');
+            // Display clickable employee names in the "Employees" column
+            groupedShifts[key].employees.forEach(employee => {
+                let employeeLink = document.createElement("a");
+                employeeLink.href = `Add_shift_to_employee.html?employeeId=${employee.id}`;
+                employeeLink.textContent = `${employee.firstname} ${employee.lastname}`;
+                employeeLink.style.display = "block"; // Make the link a block element for better styling
+
+                // Add an event listener to the link if needed
+                // employeeLink.addEventListener("click", function (event) {
+                //     // Your event handling logic here
+                // });
+
+                cell3.appendChild(employeeLink);
+
+                // Add a line break after each employee link
+                cell3.appendChild(document.createElement("br"));
+            });
         }
     }
 }
