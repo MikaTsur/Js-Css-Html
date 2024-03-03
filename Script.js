@@ -2,8 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     getDepartments();
 });
 
-//Brings the data from db
-
+// Brings the data from the db
 async function getDepartments() {
     try {
         let resp = await fetch("https://localhost:7201/api/Departments");
@@ -22,46 +21,53 @@ async function getDepartments() {
 
 function displayDepartments(data) {
     // Get the table body element
-    let tableBody = document.querySelector("#departmentTable tbody");
+    const tableBody = document.querySelector("#departmentTable tbody");
 
     // Clear existing rows
     tableBody.innerHTML = "";
 
     // Populate the table dynamically
-    data.forEach(department => {
-        let row = tableBody.insertRow();
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        let cell4 = row.insertCell(3);
-        let cell5 = row.insertCell(4);
+    data.forEach(async department => {
+        const row = tableBody.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+        const cell4 = row.insertCell(3);
+        const cell5 = row.insertCell(4);
 
         cell1.textContent = department.id;
         cell2.textContent = department.departmentName;
         cell3.textContent = department.managerId;
 
-        // Add edit and delete buttons
-        let editButton = document.createElement("button");
+        // Add edit button
+        const editButton = document.createElement("button");
         editButton.textContent = "Edit";
         editButton.addEventListener("click", () => redirectToEditPage(department.id));
 
-        let deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.addEventListener("click", () => deleteDepartment(department.id));
-
         cell4.appendChild(editButton);
-        cell5.appendChild(deleteButton);
+
+        // Check if there are employees in the department
+        const hasEmployees = await hasEmployeesInDepartment(department.id);
+
+        // Add delete button only if there are no employees in the department
+        if (!hasEmployees) {
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", () => deleteDepartment(department.id));
+            cell5.appendChild(deleteButton);
+        }
     });
 }
 
-//add Department functionality
+
+// Add Department functionality
 async function addDepartment() {
     // Get form data
-    let departmentName = document.getElementById("departmentName").value;
-    let managerId = parseInt(document.getElementById("managerId").value);
+    const departmentName = document.getElementById("departmentName").value;
+    const managerId = parseInt(document.getElementById("managerId").value);
 
     // Prepare department object
-    let newDepartment = {
+    const newDepartment = {
         departmentName: departmentName,
         managerId: managerId
     };
@@ -135,7 +141,6 @@ async function hasEmployeesInDepartment(departmentId) {
 
         updateUserCounter('UPDATE');
 
-
         let data = await resp.json();
 
         // Check if there are any employees with the specified departmentId
@@ -146,4 +151,3 @@ async function hasEmployeesInDepartment(departmentId) {
         return true;
     }
 }
-
