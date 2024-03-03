@@ -14,6 +14,9 @@
     <div id="headerContainer"></div>
     <h1>Search results</h1>
 
+    <button id="goBackBtn">Go Back</button>
+    <br></br>
+
     <input type="text" id="searchInput" placeholder="Enter search criteria">
 
     <table id="SearchemployeeTable">
@@ -24,7 +27,6 @@
                 <th>Last Name</th>
                 <th>StartWorkYear</th>
                 <th>DepartmentID</th>
-
             </tr>
         </thead>
         
@@ -53,6 +55,12 @@
         const scriptElement = document.createElement('script');
         scriptElement.src = 'header.js';
         document.body.appendChild(scriptElement);
+
+        // Handle "Go Back" button click event
+        document.getElementById('goBackBtn').addEventListener('click', function() {
+            // Redirect to employees.html
+            window.location.href = 'employees.html';
+        });
     </script>
 
     <script src="login.js"></script>
