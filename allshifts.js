@@ -17,6 +17,13 @@ async function getShifts() {
         let shiftsInfoData = await shiftsInfoResp.json();
         updateUserCounter('GET');
 
+        // Sort shifts by date in descending order
+        shiftsData.sort((a, b) => {
+            const dateA = shiftsInfoData.find(info => info.id === a.shiftID)?.date || '';
+            const dateB = shiftsInfoData.find(info => info.id === b.shiftID)?.date || '';
+            return new Date(dateB) - new Date(dateA);
+        });
+
         displayShifts(shiftsData, employeesData, shiftsInfoData);
     } catch (error) {
         console.error(`Error fetching data: ${error.message}`);
@@ -26,14 +33,13 @@ async function getShifts() {
 function displayShifts(shifts, employees, shiftsInfo) {
     let groupedShifts = {};
 
-    // Group shifts by date and hours
+    // Group shifts by date, hours, and employee
     shifts.forEach(shift => {
         let shiftInfo = shiftsInfo.find(info => info.id === shift.shiftID);
         let employee = employees.find(emp => emp.id === shift.employeeID);
 
         if (shiftInfo && employee) {
             let key = `${shiftInfo.date}_${shiftInfo.startTime}_${shiftInfo.endTime}`;
-
             if (!groupedShifts[key]) {
                 groupedShifts[key] = {
                     date: shiftInfo.date,
@@ -43,6 +49,7 @@ function displayShifts(shifts, employees, shiftsInfo) {
                 };
             }
 
+            // Add employee information to the current shift group
             groupedShifts[key].employees.push(employee);
         }
     });
@@ -60,21 +67,23 @@ function displayShifts(shifts, employees, shiftsInfo) {
             let cell2 = row.insertCell(1);
             let cell3 = row.insertCell(2);
 
-            cell1.textContent = date;
+            // Display date in the "Date" column
+            cell1.textContent = date.split('T')[0];
+
+            // Display hours in the "Hours" column
             cell2.textContent = `${startHour}-${endHour}`;
 
-            // Display employee names for the current group
+            // Display clickable employee names in the "Employees" column
             groupedShifts[key].employees.forEach(employee => {
                 let employeeLink = document.createElement("a");
-                employeeLink.href = `editEmployee.html?employeeId=${employee.id}`;
+                employeeLink.href = `Add_shift_to_employee.html?employeeId=${employee.id}`;
                 employeeLink.textContent = `${employee.firstname} ${employee.lastname}`;
                 employeeLink.style.display = "block"; // Make the link a block element for better styling
 
-                // Add an event listener to the link
-                employeeLink.addEventListener("click", function (event) {
-                    //event.preventDefault();
-                    //updateEmployee(employee.id);
-                });
+                // Add an event listener to the link if needed
+                // employeeLink.addEventListener("click", function (event) {
+                //     // Your event handling logic here
+                // });
 
                 cell3.appendChild(employeeLink);
 

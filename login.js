@@ -43,7 +43,6 @@ function login(username, password) {
             localStorage.setItem('numOfActions', data.numOfActions);
             localStorage.setItem('fullname', data.fullName);
 
-
             // Update user activity counters in localStorage
             updateUserCounter('login');
 
@@ -52,9 +51,16 @@ function login(username, password) {
         })
         .catch(error => {
             console.error('Login error:', error);
-            // Handle errors
+            
+            // Display alert for incorrect credentials or non-200 response
+            if (error.message === 'Login failed') {
+                alert('Incorrect username or password. Please try again.');
+            } else {
+                alert('An error occurred during login. Please try again later.');
+            }
         });
 }
+
 
 // Initialize or update user activity counters
 // Initialize or update user activity counters
