@@ -1,5 +1,3 @@
-// addShift.js
-
 // Function to get a parameter from the URL
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -35,7 +33,7 @@ function generateShiftOptions() {
 generateShiftOptions();
 
 // Call the function to generate options when the page loads
-function updateShift(event) {
+async function updateShift(event) {
     event.preventDefault();
 
     const employeeName = document.getElementById('EmployeeName').value;
@@ -50,68 +48,65 @@ function updateShift(event) {
     document.getElementById('displayEmployeeName').innerHTML = '<b>' + employeeName + '</b>';
     document.getElementById('displayShift').innerHTML = '<b>' + dateShift + ' ' + startHour + '-' + endHour + '</b>';
 
-    // AJAX request to update the backend for Shifts
-    const shiftsUrl = 'https://localhost:7201/api/Shifts/';
+    try {
+        // AJAX request to update the backend for Shifts
+        const shiftsUrl = 'https://localhost:7201/api/Shifts/';
 
-    fetch(shiftsUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            date: dateShift,
-            startTime: startHour,
-            endTime: endHour
-        }),
-    })
-    .then(response => {
-        if (response.ok) {
-            updateUserCounter('POST');
-            return response.json();
-        } else {
+        const response = await fetch(shiftsUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                date: dateShift,
+                startTime: startHour,
+                endTime: endHour
+            }),
+        });
+
+        if (!response.ok) {
             throw new Error('Failed to update shift: ' + response.statusText);
         }
-    })
-    .then(shiftData => {
+
+        const shiftData = await response.json();
+
         // Fetch the list of shifts to determine the last shift ID
         const lastShiftId = shiftData.id;
 
         // Additional logic for updating the EmployeesShifts table
-        updateEmployeeShiftsTable(employeeId, lastShiftId);
-    })
-    .catch(error => {
+        await updateEmployeeShiftsTable(employeeId, lastShiftId);
+    } catch (error) {
         console.error('Error updating shift:', error);
         // Handle error if needed
-    });
+    }
 }
 
-function updateEmployeeShiftsTable(employeeId, lastShiftId) {
-    const employeesShiftsUrl = 'https://localhost:7201/api/EmployeesShifts/';
+async function updateEmployeeShiftsTable(employeeId, lastShiftId) {
+    try {
+        const employeesShiftsUrl = 'https://localhost:7201/api/EmployeesShifts/';
 
-    fetch(employeesShiftsUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            id: 0, // Assuming the ID is auto-incremented
-            employeeID: employeeId,
-            shiftID: lastShiftId
-        }),
-    })
-    .then(response => {
+        const response = await fetch(employeesShiftsUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: 0, // Assuming the ID is auto-incremented
+                employeeID: employeeId,
+                shiftID: lastShiftId
+            }),
+        });
+
         if (!response.ok) {
             throw new Error('Failed to update EmployeesShifts table: ' + response.statusText);
         }
-        updateUserCounter('POST');
-        return response.json();
-    })
-    .then(data => {
+
+        const data = await response.json();
+
         console.log('Success updating EmployeesShifts:', data);
         // Handle success if needed
-    })
-    .catch(error => {
+    } catch (error) {
         console.error('Error updating EmployeesShifts:', error);
         // Handle error if needed
-    });
+    }
 }

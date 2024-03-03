@@ -17,6 +17,13 @@ async function getShifts() {
         let shiftsInfoData = await shiftsInfoResp.json();
         updateUserCounter('GET');
 
+        // Sort shifts by date in descending order
+        shiftsData.sort((a, b) => {
+            const dateA = shiftsInfoData.find(info => info.id === a.shiftID)?.date || '';
+            const dateB = shiftsInfoData.find(info => info.id === b.shiftID)?.date || '';
+            return new Date(dateB) - new Date(dateA);
+        });
+
         displayShifts(shiftsData, employeesData, shiftsInfoData);
     } catch (error) {
         console.error(`Error fetching data: ${error.message}`);
