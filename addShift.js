@@ -91,7 +91,7 @@ async function updateEmployeeShiftsTable(employeeId, lastShiftId) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                id: 0, // Assuming the ID is auto-incremented
+                id: 0, 
                 employeeID: employeeId,
                 shiftID: lastShiftId
             }),
