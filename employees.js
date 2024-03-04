@@ -74,7 +74,8 @@ function redirectToAddShiftPage(employeeId) {
 
 async function deleteEmployee(employeeId) {
     try {
-        let resp = await fetch(`https://localhost:7201/api/Employees?id=${employeeId}`, {
+        let resp = await fetch(`https://localhost:7201/api/Employees/${employeeId}`, {
+
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
